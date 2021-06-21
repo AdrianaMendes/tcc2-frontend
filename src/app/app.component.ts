@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { IUserCredentials } from '../assets/interface/user-credentials.interface';
 import { AuthService } from './auth/auth.service';
@@ -11,11 +12,17 @@ import { AuthService } from './auth/auth.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	isAuthenticated$: Observable<boolean>;
-	userCredentials$: Observable<IUserCredentials>;
+	isAuthenticate$: Observable<boolean>;
+	user$: Observable<IUserCredentials>;
 
-	constructor(private authService: AuthService) {
-		this.isAuthenticated$ = this.authService.isAuthenticated();
-		this.userCredentials$ = this.authService.getUser();
+	constructor(private authService: AuthService, private router: Router) {
+		this.isAuthenticate$ = this.authService.isAuthenticate();
+		this.user$ = this.authService.getUser();
+	}
+
+	logout(): void {
+		this.authService.logout();
+		this.isAuthenticate$ = this.authService.isAuthenticate();
+		this.router.navigateByUrl('/auth/login');
 	}
 }

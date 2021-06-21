@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Produto</h2>
+<mat-dialog-content class="mat-typography">
+	<form role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<mat-card-content fxLayout="column" fxLayoutAlign="space-around stretch">
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field>
+					<input matInput type="text" formControlName="name" />
+					<mat-placeholder>Nome</mat-placeholder>
+				</mat-form-field>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field>
+					<input matInput type="text" formControlName="description" />
+					<mat-placeholder>Descrição</mat-placeholder>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Categoria</mat-label>
+					<mat-select formControlName="categoryId">
+						<mat-option *ngFor="let category of arrCategory" [value]="category.id">
+							{{category.name}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field>
+					<input matInput type="number" formControlName="amount" />
+					<mat-placeholder>Quantidade</mat-placeholder>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput type="number" formControlName="value" />
+					<mat-placeholder>Valor</mat-placeholder>
+				</mat-form-field>
+			</div>
+		</mat-card-content>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-raised-button mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">
+		Salvar
+	</button>
+</mat-dialog-actions>

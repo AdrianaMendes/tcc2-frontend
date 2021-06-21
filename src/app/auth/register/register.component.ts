@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 	formRegister = this.fb.group(
 		{
 			fullName: ['', [Validators.required]],
@@ -38,8 +38,6 @@ export class RegisterComponent implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit(): void {}
-
 	matchingPassword(group: FormGroup): { matching: boolean } | null {
 		if (group) {
 			const password = group.controls['password'].value;
@@ -55,7 +53,7 @@ export class RegisterComponent implements OnInit {
 		const user: IUser = { ...this.formRegister.value };
 		this.authService.create(user).subscribe(
 			() => {
-				this.snackBar.open('Cadastrado com sucesso.', 'OK', { duration: 2000 });
+				this.snackBar.open('Cadastrado com Sucesso', 'OK', { duration: 2000 });
 				this.router.navigateByUrl('/auth/login');
 			},
 			err => {

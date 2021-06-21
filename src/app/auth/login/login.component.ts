@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -11,7 +11,8 @@ import { AuthService } from '../auth.service';
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+	loading = false;
 	loginForm: FormGroup = this.fb.group({
 		email: ['', [Validators.required, Validators.email]],
 		password: ['', [Validators.required]]
@@ -24,17 +25,18 @@ export class LoginComponent implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit(): void {}
-
-	async onSubmit(): Promise<void> {
+	onSubmit(): void {
 		const login: ILogin = this.loginForm.value;
-		await this.authService.login(login).subscribe(
+		this.loading = true;
+		this.authService.login(login).subscribe(
 			() => {
-				this.snackBar.open('Logado com sucesso.', 'OK', { duration: 2000 });
+				this.snackBar.open('Logado com Sucesso', 'OK', { duration: 2000 });
 				this.router.navigateByUrl('/');
+				this.loading = false;
 			},
 			() => {
 				this.snackBar.open('Falha no login', 'OK', { duration: 2000 });
+				this.loading = false;
 			}
 		);
 	}

@@ -1,5 +1,5 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -14,11 +14,10 @@ import { IUser } from '../../assets/interface/user.interface';
 export class AuthService {
 	private readonly urlCreateUser: string = 'http://localhost:3000/user/create';
 	private readonly urlLoginUser: string = 'http://localhost:3000/auth/sign-in';
+	private readonly urlGetOnlineUser: string = 'http://localhost:3000/auth/get-online-user';
 
-	private subjUser$: BehaviorSubject<IUserCredentials> = new BehaviorSubject<IUserCredentials>(
-		{} as IUserCredentials
-	);
-	private subjLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+	private user$: BehaviorSubject<IUserCredentials> = new BehaviorSubject<IUserCredentials>(<IUserCredentials>{});
+	private isAuthenticate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 	constructor(private http: HttpClient) {}
 
@@ -31,17 +30,44 @@ export class AuthService {
 			tap((userCredential: IUserCredentials) => {
 				const accessToken: string = userCredential.accessToken;
 				localStorage.setItem('accessToken', accessToken);
-				this.subjLoggedIn$.next(true);
-				this.subjUser$.next(userCredential);
+				this.isAuthenticate$.next(true);
+				this.user$.next(userCredential);
 			})
 		);
 	}
 
-	isAuthenticated(): Observable<boolean> {
-		return this.subjLoggedIn$.asObservable();
+	logout(): void {
+		localStorage.removeItem('accessToken');
+		this.isAuthenticate$.next(false);
+		this.user$.next(<IUserCredentials>{});
+	}
+
+	isAuthenticate(): Observable<boolean> {
+		const token = localStorage.getItem('accessToken');
+		if (token && !this.isAuthenticate$.value) {
+			return this.checkTokenValidation();
+		}
+		return this.isAuthenticate$.asObservable();
+	}
+
+	checkTokenValidation(): Observable<boolean> {
+		return this.http.get<IUserCredentials>(this.urlGetOnlineUser).pipe(
+			tap((u: IUserCredentials) => {
+				if (u) {
+					localStorage.setItem('accessToken', u.accessToken);
+					this.user$.next(u);
+					this.isAuthenticate$.next(true);
+				}
+			}),
+			map((u: IUserCredentials) => (u ? true : false)),
+			catchError(() => {
+				this.logout();
+				return of(false);
+			})
+		);
 	}
 
 	getUser(): Observable<IUserCredentials> {
-		return this.subjUser$.asObservable();
+		return this.user$.asObservable();
 	}
 }

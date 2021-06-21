@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Usuário</h2>
+<mat-dialog-content class="mat-typography">
+	<form role="form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+		<mat-card-content fxLayout="column" fxLayoutAlign="space-around stretch">
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field fxFlex="50">
+					<input
+						matInput
+						type="text"
+						formControlName="fullName"
+						autocomplete="fullName"
+						placeholder="Nome completo"
+					/>
+				</mat-form-field>
+				<mat-form-field fxFlex="50">
+					<input matInput type="email" formControlName="email" autocomplete="email" placeholder="E-Mail" />
+				</mat-form-field>
+			</div>
+			<md-input-container formGroupName="address">
+				<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+					<mat-form-field fxFlex="30">
+						<input matInput type="text" formControlName="cep" placeholder="CEP" mask="00000-000" />
+					</mat-form-field>
+					<mat-form-field fxFlex="20">
+						<input matInput type="text" formControlName="state" placeholder="Estado" />
+					</mat-form-field>
+					<mat-form-field fxFlex="50">
+						<input matInput type="text" formControlName="city" placeholder="Cidade" />
+					</mat-form-field>
+				</div>
+				<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+					<mat-form-field fxFlex="30">
+						<input matInput type="text" formControlName="district" placeholder="Bairro" />
+					</mat-form-field>
+					<mat-form-field fxFlex="60">
+						<input matInput type="text" formControlName="street" placeholder="Rua" />
+					</mat-form-field>
+					<mat-form-field fxFlex="10">
+						<input matInput type="text" formControlName="number" placeholder="Número" />
+					</mat-form-field>
+				</div>
+				<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+					<mat-form-field fxFlex="100">
+						<input matInput type="text" formControlName="complement" placeholder="Complemento" />
+					</mat-form-field>
+				</div>
+			</md-input-container>
+		</mat-card-content>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-raised-button mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">Salvar</button>
+</mat-dialog-actions>

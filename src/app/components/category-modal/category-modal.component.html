@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Categoria</h2>
+<mat-dialog-content class="mat-typography">
+	<form role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<mat-card-content fxLayout="column" fxLayoutAlign="space-around stretch">
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field>
+					<input matInput type="text" formControlName="name"/>
+					<mat-placeholder>Nome</mat-placeholder>
+				</mat-form-field>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+				<mat-form-field>
+					<textarea matInput type="text" formControlName="description" rows="4"></textarea>
+					<mat-placeholder>Descrição</mat-placeholder>
+				</mat-form-field>
+			</div>
+		</mat-card-content>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-raised-button mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">
+		Salvar
+	</button>
+</mat-dialog-actions>

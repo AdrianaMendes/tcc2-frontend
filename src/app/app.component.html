@@ -1,1 +1,48 @@
-<router-outlet></router-outlet>
+<div class="container">
+	<mat-toolbar color="primary">
+		<ng-container *ngIf="(isAuthenticate$ | async) && (user$ | async)">
+			<button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+		</ng-container>
+		<h1>Painel Administrativo</h1>
+		<span fxFlex></span>
+		<ng-container *ngIf="!(isAuthenticate$ | async)">
+			<button mat-button routerLink="/auth/login">
+				<mat-icon>input</mat-icon>
+				&nbsp;Entrar
+			</button>
+			<button mat-button routerLink="/auth/register">
+				<mat-icon>person_add</mat-icon>
+				&nbsp;Cadastrar
+			</button>
+		</ng-container>
+		<ng-container *ngIf="(isAuthenticate$ | async) && (user$ | async)">
+			<button mat-icon-button [matMenuTriggerFor]="menu">
+				<mat-icon>account_circle</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<p class="username">{{ (user$ | async)?.email }}</p>
+				<mat-divider></mat-divider>
+				<button mat-menu-item (click)="logout()">
+					<mat-icon>exit_to_app</mat-icon>
+					Sair
+				</button>
+			</mat-menu>
+		</ng-container>
+	</mat-toolbar>
+	<mat-sidenav-container class="sidenav-container">
+		<mat-sidenav #snav [mode]="'side'">
+			<ng-container *ngIf="(isAuthenticate$ | async) && (user$ | async)">
+				<mat-nav-list style="padding-top: 0px; min-width: 150px">
+					<a mat-list-item routerLink="main/dashboard" routerLinkActive="active">Dashboard</a>
+					<a mat-list-item routerLink="main/order">Pedidos</a>
+					<a mat-list-item routerLink="main/category">Categoria</a>
+					<a mat-list-item routerLink="main/product">Produto</a>
+					<a mat-list-item routerLink="main/user">Usuário</a>
+				</mat-nav-list>
+			</ng-container>
+		</mat-sidenav>
+		<mat-sidenav-content>
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+</div>

@@ -1,4 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+table {
+	width: 100%;
+}
+
+.button-container {
+	padding: 10px;
+	min-height: 40px;
+}
+
+mat-form-field {
+	width: 100%;
+}
+
+mat-dialog-content {
+	min-width: 50vw;
+}
+
+tr.mat-footer-row,
+.mat-sort-header-content,
+.mat-header-cell {
+	color: #000;
+	font-weight: bold;
+}
+
+table.child-table {
+	margin: 0px;
+	padding: 0px;
+	border: #673ab7;
+	border-left-style: solid;
+	background-color: #f0f0ff;
+}
