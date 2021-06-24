@@ -13,7 +13,14 @@
 					/>
 				</mat-form-field>
 				<mat-form-field fxFlex="50">
-					<input matInput type="email" formControlName="email" autocomplete="email" placeholder="E-Mail" />
+					<input
+						matInput
+						type="email"
+						formControlName="email"
+						autocomplete="email"
+						placeholder="E-mail"
+						readonly
+					/>
 				</mat-form-field>
 			</div>
 			<md-input-container formGroupName="address">
@@ -50,5 +57,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-raised-button mat-dialog-close>Cancelar</button>
-	<button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">Salvar</button>
+	<button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">
+		Salvar
+	</button>
 </mat-dialog-actions>

@@ -5,7 +5,7 @@
 		</ng-container>
 		<h1>Painel Administrativo</h1>
 		<span fxFlex></span>
-		<ng-container *ngIf="!(isAuthenticate$ | async)">
+		<ng-container *ngIf="false">
 			<button mat-button routerLink="/auth/login">
 				<mat-icon>input</mat-icon>
 				&nbsp;Entrar
@@ -16,6 +16,7 @@
 			</button>
 		</ng-container>
 		<ng-container *ngIf="(isAuthenticate$ | async) && (user$ | async)">
+			<p style="margin: 0px">{{ (user$ | async)?.fullName }}</p>
 			<button mat-icon-button [matMenuTriggerFor]="menu">
 				<mat-icon>account_circle</mat-icon>
 			</button>
@@ -35,9 +36,9 @@
 				<mat-nav-list style="padding-top: 0px; min-width: 150px">
 					<a mat-list-item routerLink="main/dashboard" routerLinkActive="active">Dashboard</a>
 					<a mat-list-item routerLink="main/order">Pedidos</a>
-					<a mat-list-item routerLink="main/category">Categoria</a>
-					<a mat-list-item routerLink="main/product">Produto</a>
-					<a mat-list-item routerLink="main/user">Usuário</a>
+					<a mat-list-item routerLink="main/category">Categorias</a>
+					<a mat-list-item routerLink="main/product">Produtos</a>
+					<a mat-list-item routerLink="main/user">Usuários</a>
 				</mat-nav-list>
 			</ng-container>
 		</mat-sidenav>

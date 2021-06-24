@@ -7,14 +7,15 @@ import { Injectable } from '@angular/core';
 import { ILogin } from '../../assets/interface/login.interface';
 import { IUserCredentials } from '../../assets/interface/user-credentials.interface';
 import { IUser } from '../../assets/interface/user.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	private readonly urlCreateUser: string = 'http://localhost:3000/user/create';
-	private readonly urlLoginUser: string = 'http://localhost:3000/auth/sign-in';
-	private readonly urlGetOnlineUser: string = 'http://localhost:3000/auth/get-online-user';
+	private readonly URL_CREATE_USER: string = `${environment.API_URL}/user/create`;
+	private readonly URL_LOGIN_USER: string = `${environment.API_URL}/auth/sign-in`;
+	private readonly URL_GET_ONLINE_USER: string = `${environment.API_URL}/auth/get-online-user`;
 
 	private user$: BehaviorSubject<IUserCredentials> = new BehaviorSubject<IUserCredentials>(<IUserCredentials>{});
 	private isAuthenticate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -22,11 +23,11 @@ export class AuthService {
 	constructor(private http: HttpClient) {}
 
 	create(user: IUser): Observable<IUser> {
-		return this.http.post<IUser>(this.urlCreateUser, user);
+		return this.http.post<IUser>(this.URL_CREATE_USER, user);
 	}
 
 	login(login: ILogin): Observable<IUserCredentials> {
-		return this.http.post<IUserCredentials>(this.urlLoginUser, login).pipe(
+		return this.http.post<IUserCredentials>(this.URL_LOGIN_USER, login).pipe(
 			tap((userCredential: IUserCredentials) => {
 				const accessToken: string = userCredential.accessToken;
 				localStorage.setItem('accessToken', accessToken);
@@ -51,7 +52,7 @@ export class AuthService {
 	}
 
 	checkTokenValidation(): Observable<boolean> {
-		return this.http.get<IUserCredentials>(this.urlGetOnlineUser).pipe(
+		return this.http.get<IUserCredentials>(this.URL_GET_ONLINE_USER).pipe(
 			tap((u: IUserCredentials) => {
 				if (u) {
 					localStorage.setItem('accessToken', u.accessToken);

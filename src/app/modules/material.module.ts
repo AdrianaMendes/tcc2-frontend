@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
 	imports: [],
@@ -36,7 +37,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 		MatSortModule,
 		MatDialogModule,
 		MatSlideToggleModule,
-		MatSelectModule
+		MatSelectModule,
+		MatGridListModule
 	],
 	declarations: []
 })

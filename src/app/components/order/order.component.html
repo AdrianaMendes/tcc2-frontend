@@ -10,11 +10,23 @@
 	</ng-container>
 	<ng-container matColumnDef="paymentType">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>Forma de Pagamento</th>
-		<td mat-cell *matCellDef="let elem">{{ elem.paymentType | paymentTypePipe }}</td>
+		<td mat-cell *matCellDef="let elem">
+			<mat-select [(value)]="elem.paymentType" (selectionChange)="updateOrder(elem)">
+				<mat-option *ngFor="let paymentType of paymentTypeArr" [value]="paymentType.value">
+					{{ paymentType.value | paymentTypePipe }}
+				</mat-option>
+			</mat-select>
+		</td>
 	</ng-container>
 	<ng-container matColumnDef="status">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-		<td mat-cell *matCellDef="let elem">{{ elem.status | statusPipe }}</td>
+		<td mat-cell *matCellDef="let elem">
+			<mat-select [(value)]="elem.status" (selectionChange)="updateOrder(elem)">
+				<mat-option *ngFor="let orderStatus of orderStatusArr" [value]="orderStatus.value">
+					{{ orderStatus.value | statusPipe }}
+				</mat-option>
+			</mat-select>
+		</td>
 	</ng-container>
 	<ng-container matColumnDef="creationDate">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>Data de Criação</th>
@@ -80,7 +92,7 @@
 		*matRowDef="let element; columns: displayedColumns"
 		class="example-element-row"
 		[class.example-expanded-row]="expandedElement === element"
-		(click)="expandedElement = expandedElement === element ? null : element"
+		(click)="expandedElement = expand($event, expandedElement, element)"
 	></tr>
 	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>

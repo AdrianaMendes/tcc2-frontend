@@ -6,10 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { IsActivePipe } from '../../assets/pipe/is-active.pipe';
-import { PaymentTypePipe } from '../../assets/pipe/payment-type.pipe';
-import { StatusPipe } from '../../assets/pipe/status.pipe';
-import { UserRolePipe } from '../../assets/pipe/user-role.pipe';
 import { AppComponent } from '../app.component';
 import { AuthInterceptor } from '../auth/auth.interceptor';
 import { AuthModule } from '../auth/auth.module';
@@ -23,6 +19,8 @@ import { UserModalComponent } from '../components/user-modal/user-modal.componen
 import { UserComponent } from '../components/user/user.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
+import { PipeModule } from './pipe.module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
 	declarations: [
@@ -32,10 +30,6 @@ import { MaterialModule } from './material.module';
 		OrderComponent,
 		UserComponent,
 		DashboardComponent,
-		PaymentTypePipe,
-		StatusPipe,
-		UserRolePipe,
-		IsActivePipe,
 		UserModalComponent,
 		CategoryModalComponent,
 		ProductModalComponent
@@ -49,7 +43,9 @@ import { MaterialModule } from './material.module';
 		AuthModule.forRoot(),
 		FormsModule,
 		ReactiveFormsModule,
-		NgxMaskModule.forRoot()
+		NgxMaskModule.forRoot(),
+		PipeModule,
+		ChartsModule
 	],
 	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 	bootstrap: [AppComponent]

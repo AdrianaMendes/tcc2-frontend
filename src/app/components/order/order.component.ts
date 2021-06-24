@@ -1,15 +1,18 @@
 import { Observable } from 'rxjs';
 
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { EOrderStatus } from '../../../assets/enum/order-status.enum';
+import { EPaymentType } from '../../../assets/enum/payment-type.enum';
 import { IOrder } from '../../../assets/interface/order.interface';
-import { OrderService } from '../../services/order.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { IProduct } from '../../../assets/interface/product.interface';
+import { OrderService } from '../../services/order.service';
 
 @Component({
 	selector: 'app-order',
@@ -24,6 +27,8 @@ import { IProduct } from '../../../assets/interface/product.interface';
 	]
 })
 export class OrderComponent implements OnInit {
+	orderStatusArr: { value: string }[];
+	paymentTypeArr: { value: string }[];
 	expandedElement: IProduct | null | undefined;
 	order$!: Observable<IOrder[]>;
 	displayedColumns: string[] = [
@@ -47,8 +52,17 @@ export class OrderComponent implements OnInit {
 	constructor(
 		private orderService: OrderService,
 		private changeDetectorRefs: ChangeDetectorRef,
+		private dialog: MatDialog,
 		private snackBar: MatSnackBar
-	) {}
+	) {
+		this.paymentTypeArr = Object.keys(EPaymentType).map(key => ({
+			value: EPaymentType[key as keyof typeof EPaymentType]
+		}));
+
+		this.orderStatusArr = Object.keys(EOrderStatus).map(key => ({
+			value: EOrderStatus[key as keyof typeof EOrderStatus]
+		}));
+	}
 
 	ngOnInit(): void {
 		this.refresh();
@@ -72,5 +86,23 @@ export class OrderComponent implements OnInit {
 			}
 			this.changeDetectorRefs.detectChanges();
 		});
+	}
+
+	updateOrder(data: IOrder): void {
+		this.orderService.update(data).subscribe(() => {
+			this.refresh();
+		});
+	}
+
+	expand(
+		event: Event,
+		expandedElement: IProduct | null | undefined,
+		element: IProduct | null | undefined
+	): IProduct | null | undefined {
+		const isExpand: boolean = (event.target as HTMLInputElement).className.includes('mat-cell');
+		if (isExpand) {
+			return expandedElement === element ? null : element;
+		}
+		return null;
 	}
 }
