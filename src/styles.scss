@@ -27,8 +27,7 @@ mat-dialog-content {
 tr.mat-footer-row,
 .mat-sort-header-content,
 .mat-header-cell {
-	color: #000;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 table.child-table {
@@ -37,4 +36,8 @@ table.child-table {
 	border: #673ab7;
 	border-left-style: solid;
 	background-color: #f0f0ff;
+}
+
+mat-nav-list {
+	font-weight: 600;
 }

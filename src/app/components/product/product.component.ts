@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IProduct } from '../../../assets/interface/product.interface';
 import { ProductService } from '../../services/product.service';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
+import { getPropertyByPath } from '../../../assets/function/util';
 
 @Component({
 	selector: 'app-product',
@@ -17,7 +18,7 @@ import { ProductModalComponent } from '../product-modal/product-modal.component'
 })
 export class ProductComponent implements OnInit {
 	product$!: Observable<IProduct[]>;
-	displayedColumns: string[] = ['category', 'name', 'description', 'amount', 'isActive', 'value', 'action'];
+	displayedColumns: string[] = ['category.name', 'name', 'description', 'amount', 'isActive', 'value', 'action'];
 
 	dataSource = new MatTableDataSource<IProduct>();
 	@ViewChild(MatPaginator, { static: true })
@@ -54,6 +55,9 @@ export class ProductComponent implements OnInit {
 			if (data) {
 				this.dataSource.data = data;
 				this.dataSource.paginator = this.paginator;
+				this.dataSource.sortingDataAccessor = (data: IProduct, sortHeaderId: string) => {
+					return getPropertyByPath(data, sortHeaderId);
+				};
 				this.dataSource.sort = this.sort;
 			} else {
 				this.dataSource.data = [];

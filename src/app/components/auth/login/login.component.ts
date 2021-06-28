@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { ILogin } from '../../../assets/interface/login.interface';
-import { AuthService } from '../auth.service';
+import { ILogin } from '../../../../assets/interface/login.interface';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'app-login',

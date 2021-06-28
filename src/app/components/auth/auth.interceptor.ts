@@ -5,14 +5,14 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 	constructor(private authService: AuthService, private router: Router) {}
 
 	intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-		const accessToken = localStorage.getItem('accessToken');
+		const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
 		if (accessToken) {
 			const authReq = req.clone({
 				setHeaders: {

@@ -1,21 +1,27 @@
-<div fxLayout="row" fxLayoutAlign="space-around">
-	<!-- <mat-card fxFlex="30">
+<div fxLayout="row" fxLayoutAlign="space-around" style="height: 200px">
+	<mat-card fxFlex="30">
 		<mat-card-header>
-			<mat-card-title>Quantidade de produtos</mat-card-title>
+			<mat-card-title>Quantidade de usuários</mat-card-title>
 		</mat-card-header>
-		<mat-card-content>{{ dashboardData.registredProducts }} </mat-card-content>
-	</mat-card> -->
+		<mat-card-content fxLayout="row" fxLayoutAlign="space-around stretch">
+			<p class="dashboard-data">{{ dashboardData.registredUsers }}</p>
+		</mat-card-content>
+	</mat-card>
 	<mat-card fxFlex>
 		<mat-card-header>
 			<mat-card-title>Total movimentado</mat-card-title>
 		</mat-card-header>
-		<mat-card-content>{{ dashboardData.movimentedValue | currency: 'R$' }} </mat-card-content>
+		<mat-card-content fxLayout="row" fxLayoutAlign="space-around stretch">
+			<p class="dashboard-data">{{ dashboardData.movimentedValue | currency: 'R$' }}</p>
+		</mat-card-content>
 	</mat-card>
 	<mat-card fxFlex>
 		<mat-card-header>
-			<mat-card-title>Pedidos finalizados</mat-card-title>
+			<mat-card-title>Pedidos realizados</mat-card-title>
 		</mat-card-header>
-		<mat-card-content>{{ dashboardData.closedOrder }} </mat-card-content>
+		<mat-card-content fxLayout="row" fxLayoutAlign="space-around stretch">
+			<p class="dashboard-data">{{ dashboardData.closedOrder }}</p>
+		</mat-card-content>
 	</mat-card>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-evenly">
@@ -25,13 +31,20 @@
 		</mat-card-header>
 		<mat-card-content>
 			<div class="chart" style="display: block">
-				<canvas baseChart [data]="pieChartData" chartType="pie" [labels]="pieChartLabels"> </canvas>
+				<canvas
+					baseChart
+					[data]="pieChartData"
+					chartType="pie"
+					[labels]="pieChartLabels"
+					[colors]="pieChartColors"
+				>
+				</canvas>
 			</div>
 		</mat-card-content>
 	</mat-card>
 	<mat-card fxFlex style="padding-left: 0px; padding-right: 0px">
 		<mat-card-header>
-			<mat-card-title>Últimos usuários</mat-card-title>
+			<mat-card-title>Últimos acessos</mat-card-title>
 		</mat-card-header>
 		<table mat-table [dataSource]="lastUsersDataSource" matSort>
 			<ng-container matColumnDef="fullName">

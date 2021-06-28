@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from '../modules/material.module';
-import { AuthRoutingModule } from './auth-routing.module';
-import { AuthInterceptor } from './auth.interceptor';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { AuthRoutingModule } from '../components/auth/auth-routing.module';
+import { AuthInterceptor } from '../components/auth/auth.interceptor';
+import { LoginComponent } from '../components/auth/login/login.component';
+import { RegisterComponent } from '../components/auth/register/register.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
 	declarations: [LoginComponent, RegisterComponent],

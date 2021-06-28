@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { IUserCredentials } from '../assets/interface/user-credentials.interface';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	selector: 'app-root',

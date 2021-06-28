@@ -30,7 +30,9 @@ export class AuthService {
 		return this.http.post<IUserCredentials>(this.URL_LOGIN_USER, login).pipe(
 			tap((userCredential: IUserCredentials) => {
 				const accessToken: string = userCredential.accessToken;
-				localStorage.setItem('accessToken', accessToken);
+				if (typeof window !== 'undefined') {
+					localStorage.setItem('accessToken', accessToken);
+				}
 				this.isAuthenticate$.next(true);
 				this.user$.next(userCredential);
 			})
@@ -38,15 +40,19 @@ export class AuthService {
 	}
 
 	logout(): void {
-		localStorage.removeItem('accessToken');
+		if (typeof window !== 'undefined') {
+			localStorage.removeItem('accessToken');
+		}
 		this.isAuthenticate$.next(false);
 		this.user$.next(<IUserCredentials>{});
 	}
 
 	isAuthenticate(): Observable<boolean> {
-		const token = localStorage.getItem('accessToken');
-		if (token && !this.isAuthenticate$.value) {
-			return this.checkTokenValidation();
+		if (typeof window !== 'undefined') {
+			const token = localStorage.getItem('accessToken');
+			if (token && !this.isAuthenticate$.value) {
+				return this.checkTokenValidation();
+			}
 		}
 		return this.isAuthenticate$.asObservable();
 	}
@@ -55,7 +61,9 @@ export class AuthService {
 		return this.http.get<IUserCredentials>(this.URL_GET_ONLINE_USER).pipe(
 			tap((u: IUserCredentials) => {
 				if (u) {
-					localStorage.setItem('accessToken', u.accessToken);
+					if (typeof window !== 'undefined') {
+						localStorage.setItem('accessToken', u.accessToken);
+					}
 					this.user$.next(u);
 					this.isAuthenticate$.next(true);
 				}

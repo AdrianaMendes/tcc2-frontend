@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { IUser } from '../../../assets/interface/user.interface';
-import { AuthService } from '../auth.service';
+import { IUser } from '../../../../assets/interface/user.interface';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'app-register',

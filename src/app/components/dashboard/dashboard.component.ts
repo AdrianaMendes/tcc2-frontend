@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, ViewChild } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Label } from 'ng2-charts';
+
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Label } from 'ng2-charts';
+
 import { IDashboardData } from '../../../assets/interface/dashboar-data.interface';
 import { IPaymentType } from '../../../assets/interface/payment-type.interface';
 import { IUser } from '../../../assets/interface/user.interface';
@@ -17,6 +18,17 @@ export class DashboardComponent implements OnInit {
 	dashboardData!: IDashboardData;
 	readonly pieChartLabels: Label[];
 	readonly lastUsersColumns: string[] = ['fullName', 'lastLoginDate', 'role'];
+	readonly pieChartColors = [
+		{
+			backgroundColor: [
+				'rgba(255,0,0,0.3)',
+				'rgba(0,255,0,0.3)',
+				'rgba(0,0,255,0.3)',
+				'rgba(0,255,255,0.3)',
+				'rgba(255,0,255,0.3)'
+			]
+		}
+	];
 	lastUsersDataSource = new MatTableDataSource<IUser>();
 	pieChartData: number[];
 	isChartLoaded: boolean;
@@ -28,7 +40,7 @@ export class DashboardComponent implements OnInit {
 		this.isChartLoaded = false;
 		this.dashboardData = {
 			closedOrder: 0,
-			registredProducts: 0,
+			registredUsers: 0,
 			movimentedValue: 0,
 			paymentType: { CASH: 0, PIX: 0, DEBIT: 0, CREDIT_CARD: 0, NOT_INFORMED: 0 } as IPaymentType,
 			lastUsers: []
