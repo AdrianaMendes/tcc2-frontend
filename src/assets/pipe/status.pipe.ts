@@ -14,13 +14,7 @@ export class StatusPipe implements PipeTransform {
 				result = 'Processando';
 				break;
 			case '2':
-				result = 'Entregue';
-				break;
-			case '3':
-				result = 'Fechado';
-				break;
-			case '4':
-				result = 'Cancelado';
+				result = 'Finalizado';
 				break;
 			default:
 				result = 'Erro interno';

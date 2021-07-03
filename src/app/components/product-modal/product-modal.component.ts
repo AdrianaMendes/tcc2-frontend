@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -17,6 +18,7 @@ export class ProductModalComponent {
 	id: number;
 	form: FormGroup;
 	arrCategory: ICategory[];
+	urlImage: string;
 
 	constructor(
 		fb: FormBuilder,
@@ -26,6 +28,7 @@ export class ProductModalComponent {
 		@Inject(MAT_DIALOG_DATA) data: IProduct
 	) {
 		this.arrCategory = [];
+		this.urlImage = '';
 
 		categoryService.findAll().subscribe(data => {
 			if (data) {
@@ -35,6 +38,9 @@ export class ProductModalComponent {
 
 		if (data) {
 			this.id = data.id;
+			if (data.image?.url) {
+				this.urlImage = data.image?.url;
+			}
 			this.form = fb.group({
 				name: [data.name, [Validators.required]],
 				description: [data.description],
@@ -65,5 +71,21 @@ export class ProductModalComponent {
 				this.snackBar.open(err.error.message, 'OK', { duration: 2000 });
 			}
 		);
+	}
+
+	onSubmitImage(event: any): void {
+		if (event.target.files && this.id !== 0) {
+			const formData: FormData = new FormData();
+			formData.append('file', event.target.files[0]);
+			this.productService.submitImage(this.id, formData).subscribe(
+				() => {
+					this.snackBar.open('Sucesso', 'OK', { duration: 2000 });
+				},
+				err => {
+					console.error(err);
+					this.snackBar.open(err.error.message, 'OK', { duration: 2000 });
+				}
+			);
+		}
 	}
 }

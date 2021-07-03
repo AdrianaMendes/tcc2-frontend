@@ -17,7 +17,7 @@
 					<mat-label>Categoria</mat-label>
 					<mat-select formControlName="categoryId">
 						<mat-option *ngFor="let category of arrCategory" [value]="category.id">
-							{{category.name}}
+							{{ category.name }}
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
@@ -32,9 +32,23 @@
 					<span matPrefix>R$</span>
 					<mat-placeholder>Valor</mat-placeholder>
 				</mat-form-field>
+				<div>
+					<button mat-raised-button color="primary" (click)="fileInput.click()">Image</button>
+					<input #fileInput type="file" (change)="onSubmitImage($event)" multiple hidden accept="image/*" />
+				</div>
 			</div>
 		</mat-card-content>
 	</form>
+	<mat-card *ngIf="urlImage !== ''" id="card-img">
+		<mat-card-content>
+			<img
+				mat-card-image
+				src="{{ urlImage }}"
+				alt="{{ form.get('name')?.value }}"
+				onerror="document.getElementById('card-img').style.display = 'none'"
+			/>
+		</mat-card-content>
+	</mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-raised-button mat-dialog-close>Cancelar</button>

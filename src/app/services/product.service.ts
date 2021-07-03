@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { IProduct } from '../../assets/interface/product.interface';
@@ -28,5 +28,9 @@ export class ProductService {
 
 	toggleAvailability(id: number): Observable<IProduct> {
 		return this.http.patch<IProduct>(`${this.BASE_URL}/toggleAvailability/${id}`, null);
+	}
+
+	submitImage(id: number, formData: FormData): Observable<any> {
+		return this.http.post<FormData>(`${this.BASE_URL}/image/${id}`, formData);
 	}
 }
