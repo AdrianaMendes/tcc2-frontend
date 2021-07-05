@@ -74,11 +74,12 @@ export class ProductModalComponent {
 	}
 
 	onSubmitImage(event: any): void {
-		if (event.target.files && this.id !== 0) {
+		if (event.target.files[0] && this.id !== 0) {
 			const formData: FormData = new FormData();
 			formData.append('file', event.target.files[0]);
 			this.productService.submitImage(this.id, formData).subscribe(
-				() => {
+				data => {
+					this.urlImage = data.url;
 					this.snackBar.open('Sucesso', 'OK', { duration: 2000 });
 				},
 				err => {

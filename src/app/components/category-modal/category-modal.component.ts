@@ -14,6 +14,7 @@ import { CategoryService } from '../../services/category.service';
 export class CategoryModalComponent {
 	id: number;
 	form: FormGroup;
+	urlImage: string;
 
 	constructor(
 		private fb: FormBuilder,
@@ -21,7 +22,12 @@ export class CategoryModalComponent {
 		private snackBar: MatSnackBar,
 		@Inject(MAT_DIALOG_DATA) public data: ICategory
 	) {
+		this.urlImage = '';
+
 		if (data) {
+			if (data.image?.url) {
+				this.urlImage = data.image?.url;
+			}
 			this.id = data.id;
 			this.form = fb.group({
 				name: [data.name, [Validators.required]],
@@ -47,5 +53,22 @@ export class CategoryModalComponent {
 				this.snackBar.open(err.error.message, 'OK', { duration: 2000 });
 			}
 		);
+	}
+
+	onSubmitImage(event: any): void {
+		if (event.target.files && this.id !== 0) {
+			const formData: FormData = new FormData();
+			formData.append('file', event.target.files[0]);
+			this.categoryService.submitImage(this.id, formData).subscribe(
+				data => {
+					this.snackBar.open('Sucesso', 'OK', { duration: 2000 });
+					this.urlImage = data.url;
+				},
+				err => {
+					console.error(err);
+					this.snackBar.open(err.error.message, 'OK', { duration: 2000 });
+				}
+			);
+		}
 	}
 }

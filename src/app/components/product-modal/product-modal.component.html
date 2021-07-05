@@ -32,23 +32,31 @@
 					<span matPrefix>R$</span>
 					<mat-placeholder>Valor</mat-placeholder>
 				</mat-form-field>
-				<div>
-					<button mat-raised-button color="primary" (click)="fileInput.click()">Image</button>
-					<input #fileInput type="file" (change)="onSubmitImage($event)" multiple hidden accept="image/*" />
-				</div>
 			</div>
 		</mat-card-content>
 	</form>
-	<mat-card *ngIf="urlImage !== ''" id="card-img">
-		<mat-card-content>
+	<div fxLayout="row" fxLayoutAlign="space-between start">
+		<div fxFlex="10">
+			<input #fileInput type="file" (change)="onSubmitImage($event)" hidden accept="image/*" />
+			<button mat-raised-button color="primary" (click)="fileInput.click()" disabled="{{ id === 0 }}">
+				Image
+			</button>
+		</div>
+		<div
+			fxFlex
+			fxLayout="row"
+			fxLayoutAlign="center center"
+			*ngIf="urlImage !== ''"
+			id="card-img"
+			style="padding: 10px; background-color: black"
+		>
 			<img
-				mat-card-image
-				src="{{ urlImage }}"
+				[src]="urlImage"
 				alt="{{ form.get('name')?.value }}"
 				onerror="document.getElementById('card-img').style.display = 'none'"
 			/>
-		</mat-card-content>
-	</mat-card>
+		</div>
+	</div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
 	<button mat-raised-button mat-dialog-close>Cancelar</button>

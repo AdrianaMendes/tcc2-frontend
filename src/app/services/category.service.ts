@@ -25,4 +25,8 @@ export class CategoryService {
 			return this.http.patch<ICategory>(`${this.BASE_URL}/update/${payload.id}`, payload);
 		}
 	}
+
+	submitImage(id: number, formData: FormData): Observable<any> {
+		return this.http.post<FormData>(`${this.BASE_URL}/image/${id}`, formData);
+	}
 }
