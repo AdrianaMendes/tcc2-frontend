@@ -22,6 +22,10 @@ export class OrderService {
 		return this.http.delete<boolean>(`${this.BASE_URL}/remove/${id}`);
 	}
 
+	closeOrder(id: number): Observable<boolean> {
+		return this.http.patch<boolean>(`${this.BASE_URL}/closeOrder/${id}`, null);
+	}
+
 	update(payload: IOrder): Observable<boolean> {
 		const payloadTransform = { id: payload.id, paymentType: payload.paymentType, status: payload.status };
 		return this.http.patch<boolean>(`${this.BASE_URL}/update/`, payloadTransform);

@@ -75,6 +75,13 @@ export class OrderComponent implements OnInit {
 		});
 	}
 
+	closeOrder(id: number): void {
+		this.orderService.closeOrder(id).subscribe(() => {
+			this.refresh();
+			this.snackBar.open('Sucesso', 'OK', { duration: 2000 });
+		});
+	}
+
 	refresh(): void {
 		this.orderService.findAll().subscribe(data => {
 			if (data) {
