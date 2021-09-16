@@ -2,8 +2,13 @@
 	<div align="center" fxLayout="row" fxLayoutAlign="center center">
 		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 			<mat-card class="login-card mat-elevation-z8">
-				<mat-card-title>Login</mat-card-title>
+				<mat-card-title></mat-card-title>
 				<mat-card-content fxLayout="column">
+					<div style="display: flex; justify-content: center; align-items: center">
+						<div class="logo">
+						  <img src="../assets/epm_logo4.png" alt="">
+						</div>
+					</div>
 					<mat-form-field>
 						<input
 							matInput
