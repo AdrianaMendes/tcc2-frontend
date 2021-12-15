@@ -1,27 +1,38 @@
-# AppFrontendAngular
+![](https://img.shields.io/github/languages/top/AdrianaMendes/tcc2-backend.svg?color=Blue&style=flat-square) ![](https://img.shields.io/github/languages/code-size/AdrianaMendes/tcc2-backend.svg?color=Blue&label=Code%20Size&style=flat-square) ![](https://img.shields.io/github/search/AdrianaMendes/tcc2-backend/tcc2-backend.svg?color=Blue&label=Views&style=flat-square)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+# Frontend
 
-## Development server
+O presente repositório foi empregado na criação do backend da aplicação "Entrega pra mim". O framework NestJs é a tecnologia usado para criar o servidor que atenderá as requisições dos usuários e o Swagger foi utilizado para documentar e testar API REST. A infraestrutura foi provisionado pelos serviços do Heroku e as imagens armazenadas no S3 AWS. O sistema gerencial é baseado em Angular, a autenticação e autorização das sessões dos usuários é feito através dos tokens JWT. Os clientes da solução de delivery consumirá os serviços através de um aplicativo móvel desenvolvido em Ionic.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Modelagem Entidade-Relacionamento
 
-## Code scaffolding
+![](documents/modelagem-postgresql.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Arquitetura do Sistema
 
-## Build
+![](documents/arquitetura.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Painel do Heroku
 
-## Running unit tests
+![](documents/heroku.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Bucket AWS S3
 
-## Running end-to-end tests
+![](documents/s3.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Swagger
 
-## Further help
+![](documents/swagger.png)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Licença
+
+Este projeto está sob licença privado © 2021 Adriana Mirian Mendes Cardoso.
+Para mais informações acesse o arquivo :scroll:`LICENSE.md`.
+
+# Contato
+
+:email: E-Mail: ​[adriana.cardoso@aluno.ufop.edu.br](adriana.cardoso@aluno.ufop.edu.br)
+
+:clipboard: Linkedin: ​[https://www.linkedin.com/in/adriana-mendes-engenheira-de-computacao/](https://www.linkedin.com/in/adriana-mendes-engenheira-de-computacao/)
+
+:package: GitHub:  [https://github.com/AdrianaMendes](https://github.com/AdrianaMendes)
