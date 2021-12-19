@@ -12,7 +12,7 @@
 			<mat-card-title>Total movimentado</mat-card-title>
 		</mat-card-header>
 		<mat-card-content fxLayout="row" fxLayoutAlign="space-around stretch">
-			<p class="dashboard-data">{{ dashboardData.movimentedValue | currency: 'R$' }}</p>
+			<p class="dashboard-data">R$ {{ (dashboardData.movimentedValue + '').replace('.',',') }}</p>
 		</mat-card-content>
 	</mat-card>
 	<mat-card fxFlex>
