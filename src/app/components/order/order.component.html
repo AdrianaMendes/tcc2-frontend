@@ -38,7 +38,7 @@
 	</ng-container>
 	<ng-container matColumnDef="totalValue">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
-		<td mat-cell *matCellDef="let elem">{{ elem.totalValue | currency: 'R$' }}</td>
+		<td mat-cell *matCellDef="let elem">R${{ (elem.totalValue).replace('.', ',') }}</td>
 	</ng-container>
 	<ng-container matColumnDef="action">
 		<th mat-header-cell *matHeaderCellDef>Ação</th>
@@ -72,15 +72,15 @@
 					</ng-container>
 					<ng-container matColumnDef="originalProductValue">
 						<th mat-header-cell *matHeaderCellDef>Valor Unitário</th>
-						<td mat-cell *matCellDef="let elem">{{ elem.originalProductValue | currency: 'R$' }}</td>
+						<td mat-cell *matCellDef="let elem">R${{ (elem.originalProductValue).replace('.',',') }}</td>
 						<td mat-footer-cell *matFooterCellDef>Valor do pedido</td>
 					</ng-container>
 					<ng-container matColumnDef="total">
 						<th mat-header-cell *matHeaderCellDef>Total</th>
 						<td mat-cell *matCellDef="let elem">
-							{{ elem.originalProductValue * elem.amount | currency: 'R$' }}
+							R${{ ((elem.originalProductValue * elem.amount) + '').replace('.',',') }}
 						</td>
-						<td mat-footer-cell *matFooterCellDef>{{ order.totalValue | currency: 'R$' }}</td>
+						<td mat-footer-cell *matFooterCellDef>R${{ (order.totalValue).replace('.',',') }}</td>
 					</ng-container>
 					<tr mat-header-row *matHeaderRowDef="productColumns"></tr>
 					<tr mat-row *matRowDef="let row; columns: productColumns"></tr>
